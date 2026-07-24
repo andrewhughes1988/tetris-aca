@@ -1,0 +1,25 @@
+resource_group_name = "tetris-aca"
+location            = "centralus"
+workspace_name      = "netsysprep-tetris-workspace"
+environment_name    = "cae-netsysprep-tetris"
+container_app_name  = "tetris"
+container_image     = "index.docker.io/andrewhughes1988/tetris:1.0"
+target_port         = 80
+
+registry_server   = ""
+registry_username = ""
+registry_password = ""
+
+alert_email = "andrew.hughes@netsysprep.com"
+
+tags = {
+  Environment = "Production"
+  ManagedBy   = "Terraform"
+}
+
+# Cloudflare configurations (cloudflare_api_token passed via TF_VAR_cloudflare_api_token)
+cloudflare_zone_id   = "your-cloudflare-zone-id"
+subdomain            = "tetris"
+custom_domain        = "tetris.yourdomain.com"
+
+transport_method = "http2"
