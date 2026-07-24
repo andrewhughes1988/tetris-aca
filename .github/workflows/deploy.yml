@@ -1,4 +1,4 @@
-name: "Tetris CI/CD - Build & Terraform Deploy"
+name: "Tetris CI/CD - Terraform Deploy"
 
 on:
   push:
@@ -14,34 +14,9 @@ permissions:
   pull-requests: write
 
 jobs:
-  # Step 1: Build and Push Docker image to Docker Hub
-  build-and-push:
-    name: "Build & Push Docker Image"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-          tags: |
-            andrewhughes1988/tetris:1.0
-            andrewhughes1988/tetris:latest
-
-  # Step 2: Deploy Infrastructure on Azure Container Apps + Cloudflare via OIDC
+  # Deploy Infrastructure on Azure Container Apps + Cloudflare via OIDC
   terraform:
     name: "Terraform Plan & Apply"
-    needs: build-and-push
     runs-on: ubuntu-latest
 
     defaults:
