@@ -16,11 +16,13 @@ terraform {
     storage_account_name = "netsysprep"
     container_name       = "tetris-tfstate"
     key                  = "tetris.terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
 
 provider "azurerm" {
   features {}
+  use_oidc = true
 }
 
 provider "cloudflare" {
