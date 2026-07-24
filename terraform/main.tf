@@ -57,7 +57,17 @@ resource "cloudflare_record" "app_cname" {
   proxied = false
 }
 
-# 3. Bind the custom domain to the Container App (Azure automatically creates and binds the managed certificate)
+# 3. Wait 30 seconds for Cloudflare DNS propagation
+resource "time_sleep" "wait_for_dns" {
+  create_duration = "30s"
+
+  depends_on = [
+    cloudflare_record.azure_verify,
+    cloudflare_record.app_cname
+  ]
+}
+
+# 4. Bind the custom domain to the Container App (Azure automatically creates and binds the managed certificate)
 resource "azurerm_container_app_custom_domain" "domain_binding" {
   container_app_id = module.container_app.container_app_id
   name             = var.custom_domain
@@ -70,8 +80,7 @@ resource "azurerm_container_app_custom_domain" "domain_binding" {
   }
 
   depends_on = [
-    cloudflare_record.azure_verify,
-    cloudflare_record.app_cname
+    time_sleep.wait_for_dns
   ]
 }
 
