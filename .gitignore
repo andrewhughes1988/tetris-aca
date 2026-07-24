@@ -10,9 +10,8 @@ override.tf.json
 *override.tf.json
 .terraform.lock.hcl
 
-# Sensitive tfvars files
-*.tfvars
-!*.tfvars.example
+# Sensitive secret tfvars files
+*.secrets.tfvars
 
 # OS / Editor junk
 .DS_Store
