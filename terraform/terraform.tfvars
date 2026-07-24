@@ -15,7 +15,7 @@ registry_password = ""
 alert_email = "andrew.hughes@netsysprep.com"
 
 tags = {
-  Environment = "Production"
+  Environment = "PROD"
   ManagedBy   = "Terraform"
 }
 
