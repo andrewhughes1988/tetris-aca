@@ -24,4 +24,4 @@ cloudflare_zone_id = "dcf36ded33f26dcf9bf562d0e00fc0e8"
 subdomain          = "tetris"
 custom_domain      = "tetris.netsysprep.com"
 
-transport_method = "http2"
+transport_method = "auto"
